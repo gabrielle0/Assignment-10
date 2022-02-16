@@ -17,15 +17,12 @@ import numpy as np
 import pyzbar.pyzbar as pyzbar
 import sys
 
-
 cap = cv2.VideoCapture(0)
-
 
 while True:
     _, frame = cap.read()
 
     decodedObjects = pyzbar.decode(frame)
-    
     for obj in decodedObjects:
         global qrdata
         qrdata = obj.data.decode("utf-8")
@@ -36,8 +33,7 @@ while True:
     key = cv2.waitKey(1)
     if key == 27:
         break
-
-
+    
 dataItems = qrdata.split("\r")
 information = list(dataItems)
 
