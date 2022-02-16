@@ -12,10 +12,10 @@
 #Your source code should be in github before Feb 19
 #Create a demo of your program (1-2 min) and send it directly to my messenger.
 
-
 import cv2
 import numpy as np
 import pyzbar.pyzbar as pyzbar
+
 
 cap = cv2.VideoCapture(0)
 
@@ -24,8 +24,9 @@ while True:
 
     decodedObjects = pyzbar.decode(frame)
     for obj in decodedObjects:
-        print ("data", obj.data)
-
+        global sample
+        sample = obj.data
+        print("Reading data", obj.data)
 
     cv2.imshow("Frame", frame)
 
@@ -34,11 +35,5 @@ while True:
         break
 
 
-
-
-
-
-
-
-
+print (sample)
 
