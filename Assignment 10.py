@@ -17,13 +17,13 @@ import numpy as np
 import pyzbar.pyzbar as pyzbar
 import sys
 
+
 cap = cv2.VideoCapture(0)
 
 
 while True:
     _, frame = cap.read()
 
-    global decodedObjects
     decodedObjects = pyzbar.decode(frame)
     
     for obj in decodedObjects:
@@ -41,6 +41,10 @@ while True:
 dataItems = qrdata.split("\r")
 information = list(dataItems)
 
+from datetime import date, datetime
+currentTime = datetime.now()
+timeString = currentTime.strftime("%d/%m/%Y %H:%M:%S")
+
 
 sys.stdout = open("Data from QR Code.txt", "w")
 print (information[0])
@@ -48,6 +52,7 @@ print (information[1])
 print (information[2])
 print (information[3])
 print (information[4])
+print (f"Date and time read:{timeString}")
 
 sys.stdout.close()
 
