@@ -15,19 +15,22 @@
 import cv2
 import numpy as np
 import pyzbar.pyzbar as pyzbar
-
+import sys
 
 cap = cv2.VideoCapture(0)
+
 
 while True:
     _, frame = cap.read()
 
+    global decodedObjects
     decodedObjects = pyzbar.decode(frame)
+    
     for obj in decodedObjects:
-        global sample
-        sample = obj.data
-        print("Reading data", obj.data)
-
+        global qrdata
+        qrdata = obj.data.decode("utf-8")
+        print("Reading data. Press escape key to stop camera")
+  
     cv2.imshow("Frame", frame)
 
     key = cv2.waitKey(1)
@@ -35,5 +38,17 @@ while True:
         break
 
 
-print (sample)
+dataItems = qrdata.split("\r")
+information = list(dataItems)
+
+
+sys.stdout = open("Data from QR Code.txt", "w")
+print (information[0])
+print (information[1])
+print (information[2])
+print (information[3])
+print (information[4])
+
+sys.stdout.close()
+
 
